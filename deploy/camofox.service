@@ -1,0 +1,18 @@
+[Unit]
+Description=Camofox Browser Automation Server
+After=network.target
+
+[Service]
+Type=simple
+User=keith
+WorkingDirectory=/home/keith/camofox-browser
+Environment=CAMOFOX_PORT=9377
+# Increase memory limit to 2GB to prevent OOM crashes (up from 128MB)
+ExecStart=/usr/local/bin/node --max-old-space-size=2048 server.js
+Restart=always
+RestartSec=5
+StandardOutput=append:/var/log/camofox.log
+StandardError=append:/var/log/camofox.log
+
+[Install]
+WantedBy=multi-user.target
